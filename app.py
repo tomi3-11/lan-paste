@@ -79,6 +79,8 @@ def parse_ttl(value):
 
 
 def create_paste(content, title="", ttl_hours=None):
+    if not isinstance(content, str) or not isinstance(title, str):
+        raise PasteValidationError("content and title must be strings")
     if not content or not content.strip():
         raise PasteValidationError("Paste content cannot be empty")
     try:

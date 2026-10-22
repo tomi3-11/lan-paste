@@ -61,7 +61,8 @@ Set expiry using `X-Paste-TTL: 1`, `24`, `168`, or `never`. Omit it to use `DEFA
 JSON clients can send `{"title":"note","content":"hello","ttl_hours":24}` with `Content-Type: application/json`.
 
 JSON bodies must be objects. `content` must be a non-empty string (not just
-whitespace), and `title`, when supplied, must be a string. For JSON, `ttl_hours`
+whitespace), and `title`, when supplied, must be a string. Explicit `null`,
+numbers, arrays, and objects are not accepted for either field. For JSON, `ttl_hours`
 accepts integers `1`, `24`, `168`, their string forms, or `"never"`. Omitting it,
 using `null`, `""`, or `"default"` uses `DEFAULT_TTL_HOURS`. Boolean and fractional
 values are rejected. Raw-body clients keep using the title and TTL headers above.
