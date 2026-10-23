@@ -277,3 +277,20 @@ def test_unexpired_paste_remains_readable(route, ttl_hours, monkeypatch):
         assert "still-readable-marker" in response.get_data(as_text=True)
     with paste_app.connect() as db:
         assert db.execute("SELECT id FROM pastes WHERE id = ?", (paste_id,)).fetchone() is not None
+
+def test_recent_pastes_include_copy_url_button():
+    client = paste_app.app.test_client()
+    created = client.post(
+        "/api/pastes",
+        json={"title": "copy test", "content": "copy this link"},
+    )
+    assert created.status_code == 201
+    paste = created.get_json()
+
+    response = client.get("/")
+    assert response.status_code == 200
+    html = response.get_data(as_text=True)
+
+    assert paste["id"] in html
+    assert "Copy URL" in html
+    assert f"/p/{paste['id']}" in html
