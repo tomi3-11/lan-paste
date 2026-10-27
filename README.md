@@ -64,6 +64,7 @@ The port is reachable only where network routes and firewall rules allow it. Do 
 - Open a paste by its unique URL and copy its content
 - View the 50 most recent pastes
 - Expired pastes are removed during normal requests
+- Copy URL uses the Clipboard API when available and a legacy fallback otherwise; clipboard access may still be restricted by the browser, especially over plain HTTP.
 
 ## Quick-paste API
 
